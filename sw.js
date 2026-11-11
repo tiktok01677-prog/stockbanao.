@@ -1,0 +1,6 @@
+/* Offline cache for pages/assets. User records remain in browser storage and are not sent to the service worker. */
+const VERSION='stockbanao-cache-v1';
+const ASSETS=['./','./index.html','./assets/app.mjs','./assets/core.mjs','./assets/store.mjs','./assets/config.js','./assets/icons.mjs','./assets/base.css','./assets/stock.css','./assets/legal.css','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png','./manifest.webmanifest','./privacy.html','./delete-data.html','./help.html','./terms.html','./about.html','./contact.html'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('stockbanao-')&&k!==VERSION).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET'||new URL(req.url).origin!==self.location.origin)return;event.respondWith(fetch(req).then(r=>{if(r.ok){const copy=r.clone();caches.open(VERSION).then(c=>c.put(req,copy)).catch(()=>{});}return r;}).catch(()=>caches.match(req).then(r=>r||Response.error())));});

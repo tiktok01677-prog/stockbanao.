@@ -1,0 +1,17 @@
+STOCKBANAO – READY GITHUB PAGES WEBSITE
+
+1. Open ZIP and extract it.
+2. Upload the contents of "stockbanao" folder to the ROOT of your GitHub repository.
+3. Settings > Pages > Deploy from branch > main > /(root).
+4. Open the HTTPS published link: https://YOUR_USERNAME.github.io/StockBanao/
+5. Add products, then use Stock In / Stock Out to track quantity.
+6. Settings > Download backup: save JSON backups regularly.
+
+IMPORTANT:
+- You are getting the WEBSITE source, not APK or AAB.
+- Android Studio Java WebView needs the actual GitHub Pages URL.
+- Backup file download and restore need additional handling in Android WebView; test on mobile.
+- Before publishing, replace YOUR DEVELOPER NAME and YOUR_EMAIL@example.com in legal pages and config.
+- No server-side sync; your records are stored locally on each browser/device.
+
+Read README.md for full instructions.
